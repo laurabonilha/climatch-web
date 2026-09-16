@@ -22,7 +22,6 @@ export function EventoCard({
   vento,
   melhorHorario,
   tipoReconhecido,
-  emRisco,
   onRemover,
   onAtualizar,
 }) {
@@ -71,8 +70,6 @@ export function EventoCard({
       {tipoReconhecido === false && (
         <p className="aviso">Tipo de evento não mapeado — usando critérios genéricos.</p>
       )}
-
-      {emRisco && <p className="aviso">⚠️ Este evento está em risco.</p>}
 
       {(onAtualizar || onRemover) && (
         <div className="card-acoes">

@@ -4,7 +4,6 @@ import { Logo } from "./Logo";
 const links = [
   { to: "/eventos", label: "Eventos" },
   { to: "/eventos/novo", label: "Novo Evento" },
-  { to: "/eventos-em-risco", label: "Eventos em Risco" },
   { to: "/sugestoes-data", label: "Melhor Data" },
 ];
 

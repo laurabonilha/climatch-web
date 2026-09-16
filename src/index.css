@@ -332,21 +332,26 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 560px;
+  width: 100%;
+  margin: 0 0 24px;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--card-border);
   border-radius: 18px;
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: 28px 32px;
   box-shadow: 0 14px 28px -22px rgba(58, 46, 34, 0.55);
+}
+
+.formulario > .btn-primary {
+  align-self: center;
+  margin-top: 4px;
 }
 
 .formulario-modal {
   max-width: none;
+  margin: 0;
   border: none;
   box-shadow: none;
   padding: 0;
-  margin-bottom: 0;
 }
 
 /* ---------- modal ---------- */
@@ -419,6 +424,11 @@ h3 {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: #fff;
+}
+
+.campo textarea {
+  resize: none;
+  min-height: 88px;
 }
 
 .campo input:focus,
