@@ -20,11 +20,11 @@ export function EventoForm({ valores, aoAlterarCampo }) {
         <input required value={valores.cidade} onChange={(e) => aoAlterarCampo("cidade", e.target.value)} />
       </Field>
 
-      <Field label="Data (AAAA-MM-DD)">
+      <Field label="Data (DD-MM-AAAA)">
         <input
           required
-          placeholder="2026-10-05"
-          pattern="\d{4}-\d{2}-\d{2}"
+          placeholder="05-10-2026"
+          pattern="\d{2}-\d{2}-\d{4}"
           value={valores.data_evento}
           onChange={(e) => aoAlterarCampo("data_evento", e.target.value)}
         />

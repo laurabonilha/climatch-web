@@ -5,7 +5,6 @@ import { WeatherIcon } from "../../components/WeatherIcon";
 import { Chip } from "../../components/Chip";
 import { ClockIcon, ThermometerIcon, RaindropIcon, WindIcon } from "../../components/icons";
 import { Button } from "../../components/Button";
-import { formatarData } from "../../utils/formatarData";
 import { EditarEventoModal } from "./EditarEventoModal";
 
 export function EventoCard({
@@ -37,7 +36,7 @@ export function EventoCard({
 
       <p className="meta">
         {tipoEvento ? `${tipoEvento} · ` : ""}
-        {cidade} · <span className="num">{formatarData(data)}</span>
+        {cidade} · <span className="num">{data}</span>
         {hora ? (
           <>
             {" "}

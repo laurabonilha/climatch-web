@@ -56,10 +56,10 @@ export function NovaSugestaoForm({ onCriada }) {
         <input required value={tipoEvento} onChange={(e) => setTipoEvento(e.target.value)} />
       </Field>
 
-      <Field label="Datas candidatas (separadas por vírgula, AAAA-MM-DD)">
+      <Field label="Datas candidatas (separadas por vírgula, DD-MM-AAAA)">
         <input
           required
-          placeholder="2026-10-05, 2026-10-12, 2026-10-19"
+          placeholder="05-10-2026, 12-10-2026, 19-10-2026"
           value={datasTexto}
           onChange={(e) => setDatasTexto(e.target.value)}
         />
