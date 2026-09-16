@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Card } from "../../components/Card";
 import { StatusPill } from "../../components/StatusPill";
 import { WeatherIcon } from "../../components/WeatherIcon";
-import { ClockIcon } from "../../components/icons";
+import { Chip } from "../../components/Chip";
+import { ClockIcon, ThermometerIcon, RaindropIcon, WindIcon } from "../../components/icons";
 import { Button } from "../../components/Button";
 import { formatarData } from "../../utils/formatarData";
+import { EditarEventoModal } from "./EditarEventoModal";
 
 export function EventoCard({
   nome,
@@ -11,13 +14,21 @@ export function EventoCard({
   cidade,
   data,
   hora,
+  descricao,
   classificacao,
   recomendacao,
+  temperatura,
+  chanceChuva,
+  vento,
   melhorHorario,
   tipoReconhecido,
   emRisco,
   onRemover,
+  onAtualizar,
 }) {
+  const [editando, setEditando] = useState(false);
+  const temCondicoesNaHora = temperatura != null || chanceChuva != null || vento != null;
+
   return (
     <Card icon={<WeatherIcon classificacao={classificacao} />} className={classificacao}>
       <div className="card-top">
@@ -36,13 +47,25 @@ export function EventoCard({
         ) : null}
       </p>
 
+      {temCondicoesNaHora && (
+        <div className="chips">
+          {temperatura != null && (
+            <Chip icon={<ThermometerIcon />}>{Math.round(temperatura)}°C</Chip>
+          )}
+          {chanceChuva != null && <Chip icon={<RaindropIcon />}>{chanceChuva}% de chuva</Chip>}
+          {vento != null && <Chip icon={<WindIcon />}>{Math.round(vento)} km/h</Chip>}
+        </div>
+      )}
+
       {recomendacao && <p className="recomendacao">{recomendacao}</p>}
 
       {melhorHorario?.hora && (
-        <p className="melhor-horario">
-          <ClockIcon />
-          Melhor horário do dia: <strong>{melhorHorario.hora}</strong> — {melhorHorario.motivo}
-        </p>
+        <div className="melhor-horario">
+          <Chip icon={<ClockIcon />} variant="ghost">
+            Melhor horário: {melhorHorario.hora}
+          </Chip>
+          <p className="motivo">{melhorHorario.motivo}</p>
+        </div>
       )}
 
       {tipoReconhecido === false && (
@@ -51,10 +74,35 @@ export function EventoCard({
 
       {emRisco && <p className="aviso">⚠️ Este evento está em risco.</p>}
 
-      {onRemover && (
-        <Button variant="danger" onClick={onRemover}>
-          Remover
-        </Button>
+      {(onAtualizar || onRemover) && (
+        <div className="card-acoes">
+          {onAtualizar && (
+            <Button variant="secondary" onClick={() => setEditando(true)}>
+              Atualizar
+            </Button>
+          )}
+          {onRemover && (
+            <Button variant="danger" onClick={onRemover}>
+              Remover
+            </Button>
+          )}
+        </div>
+      )}
+
+      {onAtualizar && (
+        <EditarEventoModal
+          aberto={editando}
+          onFechar={() => setEditando(false)}
+          valoresIniciais={{
+            nome,
+            tipo_evento: tipoEvento,
+            cidade,
+            data_evento: data,
+            hora: hora ?? "",
+            descricao: descricao ?? "",
+          }}
+          onSalvar={onAtualizar}
+        />
       )}
     </Card>
   );

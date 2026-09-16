@@ -67,7 +67,7 @@ export function NovaSugestaoForm({ onCriada }) {
 
       {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
 
-      <Button type="submit" disabled={enviando}>
+      <Button type="submit" loading={enviando}>
         {enviando ? "Calculando..." : "Calcular melhor data"}
       </Button>
     </form>

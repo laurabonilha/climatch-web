@@ -25,9 +25,11 @@ export function SugestaoCard({ nome, cidade, tipoEvento, resultados, melhorData,
       </ul>
 
       {onRemover && (
-        <Button variant="danger" onClick={onRemover}>
-          Remover
-        </Button>
+        <div className="card-acoes">
+          <Button variant="danger" onClick={onRemover}>
+            Remover
+          </Button>
+        </div>
       )}
     </Card>
   );
