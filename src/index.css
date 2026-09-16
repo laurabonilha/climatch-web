@@ -1,0 +1,213 @@
+:root {
+  --text: #3f3d45;
+  --text-h: #08060d;
+  --bg: #f7f7fb;
+  --card-bg: #fff;
+  --border: #e5e4e7;
+  --accent: #6d4bff;
+
+  --favoravel: #1f8a4c;
+  --favoravel-bg: #e3f6ea;
+  --moderado: #a16207;
+  --moderado-bg: #fdf3d8;
+  --arriscado: #b91c1c;
+  --arriscado-bg: #fde3e3;
+  --indisponivel: #6b7280;
+  --indisponivel-bg: #eceef1;
+
+  font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: var(--text-h);
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-link {
+  color: #cfcbe0;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.app-content {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.botao {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 12px 0;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botao-remover {
+  background: transparent;
+  color: var(--arriscado);
+  border: 1px solid var(--arriscado);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.formulario label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.formulario input,
+.formulario textarea {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.lista-eventos {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.selo {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.selo-favoravel {
+  color: var(--favoravel);
+  background: var(--favoravel-bg);
+}
+
+.selo-moderado {
+  color: var(--moderado);
+  background: var(--moderado-bg);
+}
+
+.selo-arriscado {
+  color: var(--arriscado);
+  background: var(--arriscado-bg);
+}
+
+.selo-indisponivel {
+  color: var(--indisponivel);
+  background: var(--indisponivel-bg);
+}
+
+.recomendacao {
+  margin: 8px 0;
+}
+
+.detalhe {
+  color: #6b6375;
+  font-size: 14px;
+}
+
+.aviso {
+  color: var(--moderado);
+  font-size: 14px;
+}
+
+.erro {
+  color: var(--arriscado);
+}
+
+.lista-resultados {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
