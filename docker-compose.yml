@@ -1,0 +1,30 @@
+services:
+  climatch-db:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=climatch
+      - POSTGRES_PASSWORD=climatch123
+      - POSTGRES_DB=climatch
+    ports:
+      - "5434:5432"
+    volumes:
+      - climatch-pgdata:/var/lib/postgresql/data
+
+  climatch-api:
+    build: ../climatch-api
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql://climatch:climatch123@climatch-db:5432/climatch
+    depends_on:
+      - climatch-db
+
+  climatch-web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - climatch-api
+
+volumes:
+  climatch-pgdata:
