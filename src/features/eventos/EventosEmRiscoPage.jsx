@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { eventosApi } from "../../api/eventos";
 import { ApiError } from "../../api/client";
+import { PageHeader } from "../../components/PageHeader";
+import { Mensagem } from "../../components/Mensagem";
+import { EventoCard } from "./EventoCard";
 
 export function EventosEmRiscoPage() {
   const [resultados, setResultados] = useState([]);
@@ -15,26 +18,29 @@ export function EventosEmRiscoPage() {
       .finally(() => setCarregando(false));
   }, []);
 
-  if (carregando) return <p>Avaliando eventos futuros...</p>;
-  if (erro) return <p className="erro">{erro}</p>;
-  if (resultados.length === 0) return <p>Nenhum evento futuro cadastrado pra avaliar.</p>;
-
   return (
     <div>
-      <h2>Eventos em risco</h2>
-      <p className="detalhe">Avaliação em tempo real de todos os eventos futuros cadastrados.</p>
-      <ul className="lista-eventos">
+      <PageHeader
+        title="Eventos em risco"
+        subtitle="Avaliação em tempo real de todos os eventos futuros cadastrados."
+      />
+
+      {carregando && <Mensagem tipo="info">Avaliando eventos futuros...</Mensagem>}
+      {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
+      {!carregando && !erro && resultados.length === 0 && (
+        <Mensagem tipo="vazio">Nenhum evento futuro cadastrado pra avaliar.</Mensagem>
+      )}
+
+      <ul className="lista">
         {resultados.map((r) => (
-          <li key={r.id} className={`card classificacao-${r.classificacao}`}>
-            <div className="card-header">
-              <strong>{r.nome}</strong>
-              <span className={`selo selo-${r.classificacao}`}>{r.classificacao}</span>
-            </div>
-            <p>
-              {r.cidade} — {r.data_evento}
-            </p>
-            {r.em_risco && <p className="aviso">⚠️ Este evento está em risco.</p>}
-          </li>
+          <EventoCard
+            key={r.id}
+            nome={r.nome}
+            cidade={r.cidade}
+            data={r.data_evento}
+            classificacao={r.classificacao}
+            emRisco={r.em_risco}
+          />
         ))}
       </ul>
     </div>

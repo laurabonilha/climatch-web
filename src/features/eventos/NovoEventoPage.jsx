@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { eventosApi } from "../../api/eventos";
 import { ApiError } from "../../api/client";
+import { PageHeader } from "../../components/PageHeader";
+import { Field } from "../../components/Field";
+import { Button } from "../../components/Button";
+import { Mensagem } from "../../components/Mensagem";
 
 const valoresIniciais = {
   nome: "",
@@ -40,38 +44,27 @@ export function NovoEventoPage() {
 
   return (
     <div>
-      <h2>Novo evento</h2>
-      <form onSubmit={enviar} className="formulario">
-        <label>
-          Nome
-          <input
-            required
-            value={form.nome}
-            onChange={(e) => atualizarCampo("nome", e.target.value)}
-          />
-        </label>
+      <PageHeader title="Novo evento" subtitle="Cadastre um evento ao ar livre e receba a avaliação do clima na hora." />
 
-        <label>
-          Tipo de evento
+      <form onSubmit={enviar} className="formulario">
+        <Field label="Nome">
+          <input required value={form.nome} onChange={(e) => atualizarCampo("nome", e.target.value)} />
+        </Field>
+
+        <Field label="Tipo de evento">
           <input
             required
             placeholder="casamento, corrida, churrasco..."
             value={form.tipo_evento}
             onChange={(e) => atualizarCampo("tipo_evento", e.target.value)}
           />
-        </label>
+        </Field>
 
-        <label>
-          Cidade
-          <input
-            required
-            value={form.cidade}
-            onChange={(e) => atualizarCampo("cidade", e.target.value)}
-          />
-        </label>
+        <Field label="Cidade">
+          <input required value={form.cidade} onChange={(e) => atualizarCampo("cidade", e.target.value)} />
+        </Field>
 
-        <label>
-          Data (AAAA-MM-DD)
+        <Field label="Data (AAAA-MM-DD)">
           <input
             required
             placeholder="2026-10-05"
@@ -79,31 +72,26 @@ export function NovoEventoPage() {
             value={form.data_evento}
             onChange={(e) => atualizarCampo("data_evento", e.target.value)}
           />
-        </label>
+        </Field>
 
-        <label>
-          Hora (HH:MM, opcional)
+        <Field label="Hora (HH:MM, opcional)">
           <input
             placeholder="15:00"
             pattern="([01]\d|2[0-3]):[0-5]\d"
             value={form.hora}
             onChange={(e) => atualizarCampo("hora", e.target.value)}
           />
-        </label>
+        </Field>
 
-        <label>
-          Descrição (opcional)
-          <textarea
-            value={form.descricao}
-            onChange={(e) => atualizarCampo("descricao", e.target.value)}
-          />
-        </label>
+        <Field label="Descrição (opcional)">
+          <textarea value={form.descricao} onChange={(e) => atualizarCampo("descricao", e.target.value)} />
+        </Field>
 
-        {erro && <p className="erro">{erro}</p>}
+        {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
 
-        <button type="submit" disabled={enviando} className="botao">
+        <Button type="submit" disabled={enviando}>
           {enviando ? "Avaliando clima..." : "Criar evento"}
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { sugestoesDataApi } from "../../api/sugestoesData";
 import { ApiError } from "../../api/client";
+import { PageHeader } from "../../components/PageHeader";
+import { Mensagem } from "../../components/Mensagem";
 import { NovaSugestaoForm } from "./NovaSugestaoForm";
+import { SugestaoCard } from "./SugestaoCard";
 
 export function SugestoesDataListPage() {
   const [sugestoes, setSugestoes] = useState([]);
@@ -27,34 +30,30 @@ export function SugestoesDataListPage() {
 
   return (
     <div>
-      <h2>Escolha a melhor data</h2>
+      <PageHeader
+        title="Escolha a melhor data"
+        subtitle="Compare datas candidatas para o mesmo local e tipo de evento."
+      />
+
       <NovaSugestaoForm onCriada={carregar} />
 
-      {carregando && <p>Carregando...</p>}
-      {erro && <p className="erro">{erro}</p>}
+      {carregando && <Mensagem tipo="info">Carregando...</Mensagem>}
+      {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
+      {!carregando && !erro && sugestoes.length === 0 && (
+        <Mensagem tipo="vazio">Nenhuma sugestão calculada ainda.</Mensagem>
+      )}
 
-      <ul className="lista-eventos">
+      <ul className="lista">
         {sugestoes.map((s) => (
-          <li key={s.id} className="card">
-            <div className="card-header">
-              <strong>{s.nome || `${s.cidade} — ${s.tipo_evento}`}</strong>
-              {s.melhor_data && <span className="selo selo-favoravel">melhor: {s.melhor_data}</span>}
-            </div>
-            <p>
-              {s.cidade} — {s.tipo_evento}
-            </p>
-            <ul className="lista-resultados">
-              {s.resultados.map((r) => (
-                <li key={r.data}>
-                  {r.data}: <span className={`selo selo-${r.classificacao}`}>{r.classificacao}</span>
-                  {r.chance_chuva !== null ? ` (${r.chance_chuva}% de chuva)` : ""}
-                </li>
-              ))}
-            </ul>
-            <button onClick={() => remover(s.id)} className="botao-remover">
-              Remover
-            </button>
-          </li>
+          <SugestaoCard
+            key={s.id}
+            nome={s.nome}
+            cidade={s.cidade}
+            tipoEvento={s.tipo_evento}
+            resultados={s.resultados}
+            melhorData={s.melhor_data}
+            onRemover={() => remover(s.id)}
+          />
         ))}
       </ul>
     </div>

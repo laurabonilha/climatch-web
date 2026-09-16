@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { Logo } from "./Logo";
 
 const links = [
   { to: "/eventos", label: "Eventos" },
@@ -9,15 +10,19 @@ const links = [
 
 export function Layout() {
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <h1>Climatch</h1>
-        <nav>
+    <div className="wrap">
+      <header className="topbar">
+        <div className="brand">
+          <Logo />
+          climatch
+        </div>
+        <nav className="tabs">
           {links.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
-              className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+              end={link.to === "/eventos"}
+              className={({ isActive }) => (isActive ? "active" : undefined)}
             >
               {link.label}
             </NavLink>

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { sugestoesDataApi } from "../../api/sugestoesData";
 import { ApiError } from "../../api/client";
+import { Field } from "../../components/Field";
+import { Button } from "../../components/Button";
+import { Mensagem } from "../../components/Mensagem";
 
 export function NovaSugestaoForm({ onCriada }) {
   const [nome, setNome] = useState("");
@@ -41,33 +44,32 @@ export function NovaSugestaoForm({ onCriada }) {
 
   return (
     <form onSubmit={enviar} className="formulario">
-      <label>
-        Nome (opcional)
+      <Field label="Nome (opcional)">
         <input value={nome} onChange={(e) => setNome(e.target.value)} />
-      </label>
-      <label>
-        Cidade
+      </Field>
+
+      <Field label="Cidade">
         <input required value={cidade} onChange={(e) => setCidade(e.target.value)} />
-      </label>
-      <label>
-        Tipo de evento
+      </Field>
+
+      <Field label="Tipo de evento">
         <input required value={tipoEvento} onChange={(e) => setTipoEvento(e.target.value)} />
-      </label>
-      <label>
-        Datas candidatas (separadas por vírgula, AAAA-MM-DD)
+      </Field>
+
+      <Field label="Datas candidatas (separadas por vírgula, AAAA-MM-DD)">
         <input
           required
           placeholder="2026-10-05, 2026-10-12, 2026-10-19"
           value={datasTexto}
           onChange={(e) => setDatasTexto(e.target.value)}
         />
-      </label>
+      </Field>
 
-      {erro && <p className="erro">{erro}</p>}
+      {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
 
-      <button type="submit" disabled={enviando} className="botao">
+      <Button type="submit" disabled={enviando}>
         {enviando ? "Calculando..." : "Calcular melhor data"}
-      </button>
+      </Button>
     </form>
   );
 }

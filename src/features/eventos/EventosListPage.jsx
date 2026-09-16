@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { eventosApi } from "../../api/eventos";
 import { ApiError } from "../../api/client";
+import { PageHeader } from "../../components/PageHeader";
+import { Button } from "../../components/Button";
+import { Mensagem } from "../../components/Mensagem";
+import { EventoCard } from "./EventoCard";
 
 export function EventosListPage() {
   const [eventos, setEventos] = useState([]);
@@ -25,42 +29,39 @@ export function EventosListPage() {
     carregar();
   };
 
-  if (carregando) return <p>Carregando eventos...</p>;
-  if (erro) return <p className="erro">{erro}</p>;
-
   return (
     <div>
-      <h2>Eventos cadastrados</h2>
-      <Link to="/eventos/novo" className="botao">
-        + Novo evento
-      </Link>
+      <PageHeader
+        title="Eventos cadastrados"
+        subtitle={`${eventos.length} evento(s) ao ar livre acompanhado(s) nesta conta.`}
+        action={
+          <Button as={Link} to="/eventos/novo">
+            + Novo evento
+          </Button>
+        }
+      />
 
-      {eventos.length === 0 && <p>Nenhum evento cadastrado ainda.</p>}
+      {carregando && <Mensagem tipo="info">Carregando eventos...</Mensagem>}
+      {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
+      {!carregando && !erro && eventos.length === 0 && (
+        <Mensagem tipo="vazio">Nenhum evento cadastrado ainda.</Mensagem>
+      )}
 
-      <ul className="lista-eventos">
+      <ul className="lista">
         {eventos.map((evento) => (
-          <li key={evento.id} className={`card classificacao-${evento.classificacao_geral}`}>
-            <div className="card-header">
-              <strong>{evento.nome}</strong>
-              <span className={`selo selo-${evento.classificacao_geral}`}>
-                {evento.classificacao_geral}
-              </span>
-            </div>
-            <p>
-              {evento.tipo_evento} em {evento.cidade} — {evento.data_evento}
-              {evento.hora ? ` às ${evento.hora}` : ""}
-            </p>
-            <p className="recomendacao">{evento.recomendacao}</p>
-            <p className="detalhe">
-              Melhor horário do dia: {evento.melhor_horario_hora} ({evento.melhor_horario_motivo})
-            </p>
-            {!evento.tipo_evento_reconhecido && (
-              <p className="aviso">Tipo de evento não mapeado — usando critérios genéricos.</p>
-            )}
-            <button onClick={() => remover(evento.id)} className="botao-remover">
-              Remover
-            </button>
-          </li>
+          <EventoCard
+            key={evento.id}
+            nome={evento.nome}
+            tipoEvento={evento.tipo_evento}
+            cidade={evento.cidade}
+            data={evento.data_evento}
+            hora={evento.hora}
+            classificacao={evento.classificacao_geral}
+            recomendacao={evento.recomendacao}
+            melhorHorario={{ hora: evento.melhor_horario_hora, motivo: evento.melhor_horario_motivo }}
+            tipoReconhecido={evento.tipo_evento_reconhecido}
+            onRemover={() => remover(evento.id)}
+          />
         ))}
       </ul>
     </div>
