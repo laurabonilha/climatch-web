@@ -707,6 +707,12 @@ h3 {
   font-size: 0.86rem;
 }
 
+.campo-fixo {
+  margin: 0;
+  padding: 8px 0;
+  color: var(--ink-soft);
+}
+
 .lista-resultados {
   list-style: none;
   padding: 0;

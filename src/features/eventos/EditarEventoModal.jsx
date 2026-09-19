@@ -3,7 +3,7 @@ import { Modal } from "../../components/Modal";
 import { Button } from "../../components/Button";
 import { Mensagem } from "../../components/Mensagem";
 import { ApiError } from "../../api/client";
-import { EventoForm } from "./EventoForm";
+import { EventoAtualizarForm } from "./EventoAtualizarForm";
 
 export function EditarEventoModal({ aberto, onFechar, valoresIniciais, onSalvar }) {
   const [form, setForm] = useState(valoresIniciais);
@@ -28,7 +28,7 @@ export function EditarEventoModal({ aberto, onFechar, valoresIniciais, onSalvar 
     setErro(null);
 
     try {
-      const dados = { ...form, hora: form.hora || null, descricao: form.descricao || null };
+      const dados = { nome: form.nome, hora: form.hora || null, descricao: form.descricao || null };
       await onSalvar(dados);
       onFechar();
     } catch (err) {
@@ -41,7 +41,7 @@ export function EditarEventoModal({ aberto, onFechar, valoresIniciais, onSalvar 
   return (
     <Modal aberto={aberto} titulo="Atualizar evento" onFechar={onFechar}>
       <form onSubmit={salvar} className="formulario formulario-modal">
-        <EventoForm valores={form} aoAlterarCampo={atualizarCampo} />
+        <EventoAtualizarForm valores={form} aoAlterarCampo={atualizarCampo} />
 
         {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
 

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export function Modal({ aberto, titulo, onFechar, children }) {
   useEffect(() => {
@@ -14,7 +15,7 @@ export function Modal({ aberto, titulo, onFechar, children }) {
 
   if (!aberto) return null;
 
-  return (
+  return createPortal(
     <div className="modal-overlay" onClick={onFechar}>
       <div
         className="modal"
@@ -31,6 +32,7 @@ export function Modal({ aberto, titulo, onFechar, children }) {
         </div>
         <div className="modal-body">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
