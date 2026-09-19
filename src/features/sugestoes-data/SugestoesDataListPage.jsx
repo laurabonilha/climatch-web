@@ -3,6 +3,7 @@ import { sugestoesDataApi } from "../../api/sugestoesData";
 import { ApiError } from "../../api/client";
 import { PageHeader } from "../../components/PageHeader";
 import { Mensagem } from "../../components/Mensagem";
+import { Carousel } from "../../components/Carousel";
 import { NovaSugestaoForm } from "./NovaSugestaoForm";
 import { SugestaoCard } from "./SugestaoCard";
 
@@ -37,25 +38,30 @@ export function SugestoesDataListPage() {
 
       <NovaSugestaoForm onCriada={carregar} />
 
+      <h2 className="secao-titulo">Suas melhores datas</h2>
+
       {carregando && <Mensagem tipo="info">Carregando...</Mensagem>}
       {erro && <Mensagem tipo="erro">{erro}</Mensagem>}
       {!carregando && !erro && sugestoes.length === 0 && (
         <Mensagem tipo="vazio">Nenhuma sugestão calculada ainda.</Mensagem>
       )}
 
-      <ul className="lista">
-        {sugestoes.map((s) => (
-          <SugestaoCard
-            key={s.id}
-            nome={s.nome}
-            cidade={s.cidade}
-            tipoEvento={s.tipo_evento}
-            resultados={s.resultados}
-            melhorData={s.melhor_data}
-            onRemover={() => remover(s.id)}
-          />
-        ))}
-      </ul>
+      {sugestoes.length > 0 && (
+        <Carousel
+          itens={sugestoes}
+          renderItem={(s) => (
+            <SugestaoCard
+              key={s.id}
+              nome={s.nome}
+              cidade={s.cidade}
+              tipoEvento={s.tipo_evento}
+              resultados={s.resultados}
+              melhorData={s.melhor_data}
+              onRemover={() => remover(s.id)}
+            />
+          )}
+        />
+      )}
     </div>
   );
 }

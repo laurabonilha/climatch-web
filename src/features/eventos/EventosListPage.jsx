@@ -6,6 +6,7 @@ import { PageHeader } from "../../components/PageHeader";
 import { Button } from "../../components/Button";
 import { Mensagem } from "../../components/Mensagem";
 import { StatsBar } from "../../components/StatsBar";
+import { Carousel } from "../../components/Carousel";
 import { EventoCard } from "./EventoCard";
 
 export function EventosListPage() {
@@ -69,28 +70,31 @@ export function EventosListPage() {
         <Mensagem tipo="vazio">Nenhum evento cadastrado ainda.</Mensagem>
       )}
 
-      <ul className="lista">
-        {eventos.map((evento) => (
-          <EventoCard
-            key={evento.id}
-            nome={evento.nome}
-            tipoEvento={evento.tipo_evento}
-            cidade={evento.cidade}
-            data={evento.data_evento}
-            hora={evento.hora}
-            descricao={evento.descricao}
-            classificacao={evento.classificacao_geral}
-            recomendacao={evento.recomendacao}
-            temperatura={evento.condicoes_horario_temperatura}
-            chanceChuva={evento.condicoes_horario_chance_chuva}
-            vento={evento.condicoes_horario_vento}
-            melhorHorario={{ hora: evento.melhor_horario_hora, motivo: evento.melhor_horario_motivo }}
-            tipoReconhecido={evento.tipo_evento_reconhecido}
-            onRemover={() => remover(evento.id)}
-            onAtualizar={(dados) => atualizar(evento.id, dados)}
-          />
-        ))}
-      </ul>
+      {eventos.length > 0 && (
+        <Carousel
+          itens={eventos}
+          renderItem={(evento) => (
+            <EventoCard
+              key={evento.id}
+              nome={evento.nome}
+              tipoEvento={evento.tipo_evento}
+              cidade={evento.cidade}
+              data={evento.data_evento}
+              hora={evento.hora}
+              descricao={evento.descricao}
+              classificacao={evento.classificacao_geral}
+              recomendacao={evento.recomendacao}
+              temperatura={evento.condicoes_horario_temperatura}
+              chanceChuva={evento.condicoes_horario_chance_chuva}
+              vento={evento.condicoes_horario_vento}
+              melhorHorario={{ hora: evento.melhor_horario_hora, motivo: evento.melhor_horario_motivo }}
+              tipoReconhecido={evento.tipo_evento_reconhecido}
+              onRemover={() => remover(evento.id)}
+              onAtualizar={(dados) => atualizar(evento.id, dados)}
+            />
+          )}
+        />
+      )}
     </div>
   );
 }
