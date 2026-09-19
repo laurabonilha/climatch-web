@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="1000" height="620" fill="#fbf5e9" />
+
+  <text x="500" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#3a2e22">
+    Climatch — Arquitetura (Cenário 1.1)
+  </text>
+
+  <!-- Legenda -->
+  <rect x="780" y="46" width="16" height="16" fill="#f3d9b1" stroke="#c1652f" stroke-width="1.5" />
+  <text x="802" y="59" font-size="12" fill="#3a2e22">Módulo implementado</text>
+  <rect x="780" y="70" width="16" height="16" fill="#cfe0f3" stroke="#4a75b0" stroke-width="1.5" />
+  <text x="802" y="83" font-size="12" fill="#3a2e22">Módulo/serviço externo</text>
+  <rect x="780" y="94" width="16" height="16" fill="none" stroke="#4a75b0" stroke-width="1.5" stroke-dasharray="4 3" />
+  <text x="802" y="107" font-size="12" fill="#3a2e22">Container Docker</text>
+
+  <!-- Docker Compose: caixa tracejada envolvendo os 3 containers orquestrados juntos -->
+  <rect x="30" y="160" width="580" height="390" rx="20" fill="none" stroke="#4a75b0" stroke-width="2" stroke-dasharray="8 6" />
+  <rect x="46" y="148" width="300" height="24" fill="#fbf5e9" stroke="#4a75b0" stroke-width="2" rx="6" />
+  <text x="196" y="165" text-anchor="middle" font-size="12.5" font-weight="700" fill="#233a54">
+    docker-compose.yml (3 containers juntos)
+  </text>
+
+  <!-- Interface (Front-End) -->
+  <rect x="50" y="180" width="210" height="140" rx="16" fill="#f3d9b1" stroke="#c1652f" stroke-width="2" />
+  <text x="155" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#3a2e22">Interface</text>
+  <text x="155" y="242" text-anchor="middle" font-size="12" fill="#5a4736">(Front-End)</text>
+  <text x="155" y="260" text-anchor="middle" font-size="12" fill="#5a4736">climatch-web</text>
+  <text x="155" y="276" text-anchor="middle" font-size="11" fill="#7a6650">React + Vite</text>
+  <rect x="65" y="288" width="180" height="20" rx="10" fill="#fff8ea" stroke="#c1652f" stroke-width="1" stroke-dasharray="3 2" />
+  <text x="155" y="302" text-anchor="middle" font-size="10.5" fill="#7a4a1f">🐳 container: climatch-web</text>
+
+  <!-- API Back-End -->
+  <rect x="380" y="180" width="210" height="140" rx="16" fill="#f3d9b1" stroke="#c1652f" stroke-width="2" />
+  <text x="485" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#3a2e22">API</text>
+  <text x="485" y="242" text-anchor="middle" font-size="12" fill="#5a4736">(Back-End)</text>
+  <text x="485" y="260" text-anchor="middle" font-size="12" fill="#5a4736">climatch-api</text>
+  <text x="485" y="276" text-anchor="middle" font-size="11" fill="#7a6650">FastAPI</text>
+  <rect x="395" y="288" width="180" height="20" rx="10" fill="#fff8ea" stroke="#c1652f" stroke-width="1" stroke-dasharray="3 2" />
+  <text x="485" y="302" text-anchor="middle" font-size="10.5" fill="#7a4a1f">🐳 container: climatch-api</text>
+
+  <!-- API Externa (fora do docker-compose, não é container nosso) -->
+  <rect x="760" y="180" width="210" height="140" rx="16" fill="#cfe0f3" stroke="#4a75b0" stroke-width="2" />
+  <text x="865" y="222" text-anchor="middle" font-size="16" font-weight="700" fill="#233a54">API Externa</text>
+  <text x="865" y="242" text-anchor="middle" font-size="12" fill="#3a5170">Open-Meteo</text>
+  <text x="865" y="260" text-anchor="middle" font-size="11" fill="#3a5170">Geocoding + Forecast</text>
+  <text x="865" y="276" text-anchor="middle" font-size="11" fill="#5a708c">(gratuita, sem chave)</text>
+  <text x="865" y="298" text-anchor="middle" font-size="9.5" fill="#5a708c">serviço de terceiros —</text>
+  <text x="865" y="311" text-anchor="middle" font-size="9.5" fill="#5a708c">não containerizado por nós</text>
+
+  <!-- Banco de dados -->
+  <rect x="380" y="430" width="210" height="100" rx="16" fill="#f3d9b1" stroke="#c1652f" stroke-width="2" />
+  <text x="485" y="466" text-anchor="middle" font-size="16" font-weight="700" fill="#3a2e22">PostgreSQL</text>
+  <text x="485" y="484" text-anchor="middle" font-size="12" fill="#5a4736">climatch-db</text>
+  <rect x="395" y="496" width="180" height="20" rx="10" fill="#fff8ea" stroke="#c1652f" stroke-width="1" stroke-dasharray="3 2" />
+  <text x="485" y="510" text-anchor="middle" font-size="10.5" fill="#7a4a1f">🐳 container: climatch-db</text>
+
+  <!-- Setas -->
+  <defs>
+    <marker id="seta" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3a2e22" />
+    </marker>
+  </defs>
+
+  <!-- Interface <-> API: via dupla (requisição e resposta), no espaço livre entre as duas caixas -->
+  <line x1="270" y1="250" x2="370" y2="250" stroke="#3a2e22" stroke-width="2" marker-end="url(#seta)" marker-start="url(#seta)" />
+  <text x="320" y="238" text-anchor="middle" font-size="11.5" fill="#3a2e22">REST / JSON</text>
+
+  <!-- API <- Externa: só recebemos dados (seta de mão única, apontando para dentro da nossa API) -->
+  <line x1="750" y1="250" x2="600" y2="250" stroke="#3a2e22" stroke-width="2" marker-end="url(#seta)" />
+  <text x="675" y="238" text-anchor="middle" font-size="11.5" fill="#3a2e22">HTTPS</text>
+
+  <!-- API <-> DB: leitura e escrita, centralizado no espaço livre abaixo da API -->
+  <line x1="485" y1="330" x2="485" y2="420" stroke="#3a2e22" stroke-width="2" marker-end="url(#seta)" marker-start="url(#seta)" />
+  <text x="485" y="368" text-anchor="middle" font-size="11.5" fill="#3a2e22">leitura / escrita</text>
+  <text x="485" y="384" text-anchor="middle" font-size="10" fill="#5a4736">(SQLAlchemy ORM)</text>
+
+  <text x="500" y="570" text-anchor="middle" font-size="11.5" fill="#7a6650">
+    A interface consome a API principal; a API consulta o Open-Meteo (apenas recebendo dados climáticos, sem
+  </text>
+  <text x="500" y="588" text-anchor="middle" font-size="11.5" fill="#7a6650">
+    redirecionar o usuário) e persiste as informações no PostgreSQL usando SQLAlchemy como ORM.
+  </text>
+  <text x="500" y="606" text-anchor="middle" font-size="11.5" fill="#7a6650">
+    Interface, API e banco rodam como containers orquestrados em conjunto pelo docker-compose.yml.
+  </text>
+</svg>
